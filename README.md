@@ -10,5 +10,4 @@ Hangul Bitmap Generator, sort of
 
 ## Initiation
 
-`npm i`
-`npx tsc ./hanbit.ts`
+`npm i && npx tsc ./hanbit.ts`
