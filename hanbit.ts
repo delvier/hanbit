@@ -3,10 +3,10 @@ import * as m from "minimist";
 
 let argv = m(process.argv.slice(2));
 
-let x: number = parseInt(argv._[0]);
-let y: number = parseInt(argv._[1]);
-let input: string = argv._[2];
-let text: string = argv.t ?? "다람쥐 헌 쳇바퀴에 타고파\n제맥습있까굘";
+let x: number = parseInt(argv.x);
+let y: number = parseInt(argv.y);
+let input: string = argv.i;
+let text: string = argv._[0] ?? "다람쥐 헌 쳇바퀴에 타고파\n제맥습있까굘";
 let output: string = argv.o ?? "output.png";
 let lines = text.split('\n');
 let lengths = lines.map(x => x.length);
