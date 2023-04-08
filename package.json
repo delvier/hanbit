@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@types/node": "^18.15.11",
+    "jimp": "^0.22.7",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "@types/minimist": "^1.2.2",
+    "encoding": "^0.1.13",
+    "typescript": "^5.0.4"
+  }
+}
