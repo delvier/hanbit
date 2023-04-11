@@ -18,7 +18,7 @@ The `stdin` can be redirected to this script, for example:
 
 `cat input.txt | node ./hanbit.js -x 8 -y 16 -i ./example.png -o input-redirection.png`
 
-Characters that are not in "Hangul Syllables" Unicode block (i.e. outside `U+AC00..D7A4`) will be replaced with a whitespace.
+Characters that are not in "Hangul Syllables" Unicode block (i.e. outside `U+AC00..D7A3`) will be replaced with a whitespace.
 
 ## Initiation
 
