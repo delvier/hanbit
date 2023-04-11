@@ -1,5 +1,5 @@
-import * as Jimp from "jimp";
-import * as m from "minimist";
+import Jimp = require("jimp");
+import m = require("minimist");
 
 let argv = m(process.argv.slice(2));
 
@@ -13,7 +13,7 @@ if (!process.stdin.isTTY) {
     process.stdin.on('data', (chunk) => {
         text = chunk.toString().replace(/\r\n/g, '\n');
         let lines = text.split('\n');
-        if (lines[-1] === '') {
+        if (lines[lines.length-1] === '') {
             lines.pop();
         }
         let lengths: number[] = lines.map(u => u.length) ?? [0];
