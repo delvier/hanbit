@@ -6,27 +6,46 @@ let argv = m(process.argv.slice(2));
 let x: number = parseInt(argv.x);
 let y: number = parseInt(argv.y);
 let input: string = argv.i;
-let text: string = argv._[0] ?? "다람쥐 헌 쳇바퀴에 타고파\n제맥습있까굘";
 let output: string = argv.o ?? "output.png";
-let lines = text.split('\n');
-let lengths = lines.map(x => x.length);
+let text: string = argv._[0] ?? "다람쥐 헌 쳇바퀴에 타고파\n제맥습있까굘";
+if (!process.stdin.isTTY) {
+    process.stdin.setEncoding('utf8');
+    process.stdin.on('data', (chunk) => {
+        text = chunk.toString().replace(/\r\n/g, '\n');
+        let lines = text.split('\n');
+        if (lines[-1] === '') {
+            lines.pop();
+        }
+        let lengths: number[] = lines.map(u => u.length) ?? [0];
+        out(x, y, lines, lengths);
+    })
+    process.stdin.on('end', () => {
+    
+    });
+} else {
+    let lines = text.split('\n');
+    let lengths = lines.map(u => u.length);
+    out(x, y, lines, lengths);
+}
 
-new Jimp(x * Math.max(...lengths), y * lines.length, "#FFFFFF", async (e, i) => {
-    if (e) throw e;
-    for (let j = 0; j < lines.length; j++) {
-        for (let k = 0; k < lengths[j]; k++) {
-            let c = hang_to_lvt(lines[j][k]);
-            if (c[0] >= 0) {
-                let ii = await genSyllable(...c);
-                i = i.composite(ii, k * x, j * y);
-            } else {
-                let ii = new Jimp(x, y, "#FFFFFF");
-                i = i.composite(ii, k * x, j * y);
+function out(x: number, y: number, b: string[], l: number[]) {
+    new Jimp(x * Math.max(...l), y * b.length, "#FFFFFF", async (e, i) => {
+        if (e) throw e;
+        for (let j = 0; j < b.length; j++) {
+            for (let k = 0; k < l[j]; k++) {
+                let c = hang_to_lvt(b[j][k]);
+                if (c[0] >= 0) {
+                    let ii = await genSyllable(...c);
+                    i = i.composite(ii, k * x, j * y);
+                } else {
+                    let ii = new Jimp(x, y, "#FFFFFF");
+                    i = i.composite(ii, k * x, j * y);
+                }
             }
         }
-    }
-    i.write(output);
-});
+        i.write(output);
+    });
+}
 
 function hang_to_lvt(char: string): [number, number, number] {
     let c: number | undefined = char.codePointAt(0);
